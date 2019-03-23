@@ -1,0 +1,32 @@
+{
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "moment": "^2.24.0",
+    "strip-ansi": "^5.2.0"
+  },
+  "name": "logger.js",
+  "description": "its like log4js but it can't configurable.",
+  "version": "0.0.1",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acrylic-style/logger.js.git"
+  },
+  "keywords": [
+    "logger",
+    "logger.js"
+  ],
+  "author": "acrylic-style",
+  "license": "SEE LICENCE IN LICENCE",
+  "bugs": {
+    "url": "https://github.com/acrylic-style/logger.js/issues"
+  },
+  "homepage": "https://github.com/acrylic-style/logger.js#readme"
+}

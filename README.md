@@ -7,14 +7,14 @@ You can install by executing this command: `npm i acrylic-style/logger.js` or `y
 ## Examples
 
 ```js
-const logger = require("logger.js").getLogger("logger-name", color) // also see Available colors section
+const logger = require("logger.js").LoggerFactory.getLogger("logger-name", color) // also see Available colors section
 logger.config(true) // Logger#config(debug = false)
 logger.debug("I'm debug man")
 logger.info("Hello world!")
 ```
 
 ```js
-const logger = require("logger.js").getLogger("no-debug", "purple")
+const logger = require("logger.js").LoggerFactory.getLogger("no-debug", "purple")
 logger.debug("I'm invisible!")
 logger.info("Hello world!")
 ```
