@@ -26,7 +26,7 @@ const date = moment().format('YYYY-MM-DD-HH-mm-ss')
 
 process.on('uncaughtException', err => {
   try {
-    fs.appendFileSync(`logs/latest.${date}.log`, (err && err.stack) ? err.stack : err)
+    fs.appendFileSync(`logs/latest.${date}.log`, 'uncaughtException: ' + ((err && err.stack) ? err.stack : err))
   } catch (e) {
     console.error('Couldn\'t write to file.')
   }
@@ -50,6 +50,9 @@ const getLogger = (thread, color = null) => {
   self.thread = Object.keys(colors).includes(color)
     ? colors[color](thread)
     : randomObject(colors)(thread)
+  process.on('unhandledRejection', err => {
+    self.error((err && err.stack) ? err.stack : err)
+  })
   return self.debug(`Registered logger for: ${thread}`, true)
 }
 
