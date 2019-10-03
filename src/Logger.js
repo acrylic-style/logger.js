@@ -37,7 +37,7 @@ class Logger {
    * @private
    */
   out(message, level, color, isLogger) {
-    if (typeof message !== "number") message = require('util').inspect(message)
+    if (["number", "object", "symbol", "function", "boolean", "bigint", "undefined"].includes(typeof message)) message = require('util').inspect(message)
     const date = chalk.white.bgCyan(`[${moment().format('YYYY-MM-DD HH:mm:ss.SSS')}]`) + chalk.reset()
     const thread = isLogger ? chalk.hex('#800080')('logger') : this.thread
     const coloredlevel = chalk`{${color} ${level}}`
