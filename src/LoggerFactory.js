@@ -42,7 +42,7 @@ process.on('uncaughtException', err => {
  * @param {string} color Default: Random color, yellow, darkgray, red, lightred, green, lightpurple, white, cyan, purple, blue
  * @returns {Logger} A Logger instance
  */
-const getLogger = (thread, color = null) => {
+const getLogger = (thread = 'main', color = null) => {
   if (!fs.existsSync('logs')) fs.mkdirSync('logs')
   const self = new Logger(init, date)
   self.file = `logs/latest.${date}.log`
@@ -50,6 +50,7 @@ const getLogger = (thread, color = null) => {
   self.thread = Object.keys(colors).includes(color)
     ? colors[color](thread)
     : randomObject(colors)(thread)
+  // TODO: it's some stupid thing that spams console
   process.on('unhandledRejection', err => {
     self.error((err && err.stack) ? err.stack : err)
   })

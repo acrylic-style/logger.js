@@ -14,7 +14,7 @@ class Logger {
     })
     this.file = `logs/latest.${date}.log`
     fs.writeFileSync(this.file, `--- The log begin at ${new Date().toLocaleString()} ---\n`)
-    this.debug('The log file has initialized.', true)
+    this.debug('The log file was initialized.', true)
   }
 
   /**
@@ -36,7 +36,7 @@ class Logger {
    * @returns {void} <void>
    * @private
    */
-  out(message, level, color, isLogger) {
+  #out(message, level, color, isLogger) {
     if (["number", "object", "symbol", "function", "boolean", "bigint", "undefined"].includes(typeof message)) message = require('util').inspect(message)
     const date = chalk.white.bgCyan(`[${moment().format('YYYY-MM-DD HH:mm:ss.SSS')}]`) + chalk.reset()
     const thread = isLogger ? chalk.hex('#800080')('logger') : this.thread
@@ -47,6 +47,19 @@ class Logger {
     fs.appendFileSync(this.file, `${stripAnsi(data)}\n`)
     console.info(data)
   }
+
+  /**
+   * @param {string} s 
+   * @param {Array<unknown>} args 
+   */
+  format(s, args) {
+    let result = s
+    args.forEach(o => {
+      result = result.replace('{}', o)
+    })
+    return result
+  }
+
   /**
    * Outputs info level message.
    *
@@ -57,12 +70,11 @@ class Logger {
    *
    *
    * @param {*} message
-   * @param {boolean} isLogger Don't use this
    *
    * @returns {Logger} A Logger instance
    */
-  info(message, isLogger = false) {
-    this.out(message, 'info', 'blue', isLogger)
+  info(message, ...args) {
+    this.#out(this.format(message, args), 'info', 'blue', false)
     return this
   }
   /**
@@ -76,12 +88,11 @@ class Logger {
    *
    *
    * @param {*} message
-   * @param {boolean} isLogger Don't use this
    *
    * @returns {Logger} A Logger instance
    */
-  debug(message, isLogger = false) {
-    if (this.debugging) this.out(message, 'debug', 'cyan', isLogger)
+  debug(message, ...args) {
+    if (this.debugging) this.#out(this.format(message, args), 'debug', 'cyan', false)
     return this
   }
   /**
@@ -95,12 +106,11 @@ class Logger {
    *
    *
    * @param {*} message
-   * @param {boolean} isLogger Don't use this
    *
    * @returns {Logger} A Logger instance
    */
-  warn(message, isLogger = false) {
-    this.out(message, 'warn', 'bold.yellow', isLogger)
+  warn(message, ...args) {
+    this.#out(this.format(message, args), 'warn', 'bold.yellow', false)
     return this
   }
   /**
@@ -114,12 +124,11 @@ class Logger {
    *
    *
    * @param {*} message
-   * @param {boolean} isLogger Don't use this
    *
    * @returns {Logger} A Logger instance
    */
-  error(message, isLogger = false) {
-    this.out(message, 'error', 'red', isLogger)
+  error(message, ...args) {
+    this.#out(this.format(message, args), 'error', 'red', false)
     return this
   }
   /**
@@ -133,12 +142,11 @@ class Logger {
    *
    *
    * @param {*} message
-   * @param {boolean} isLogger Don't use this
    *
    * @returns {Logger} A Logger instance
    */
-  fatal(message, isLogger = false) {
-    this.out(message, 'fatal', 'redBright.bold', isLogger)
+  fatal(message, ...args) {
+    this.#out(this.format(message, args), 'fatal', 'redBright.bold', false)
     return this
   }
   /**
@@ -155,8 +163,8 @@ class Logger {
    *
    * @returns {Logger} A Logger instance
    */
-  emerg(message) {
-    this.out(message, 'emerg', 'red.bold', false)
+  emerg(message, ...args) {
+    this.#out(this.format(message, args), 'emerg', 'red.bold', false)
     return this
   }
 }

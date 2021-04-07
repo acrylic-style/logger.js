@@ -5,7 +5,7 @@
     "strip-ansi": "^5.2.0"
   },
   "name": "logger.js",
-  "description": "its like log4js but it can't configurable.",
+  "description": "its like log4js but not configurable.",
   "version": "0.0.1",
   "main": "index.js",
   "directories": {
@@ -23,6 +23,7 @@
     "logger",
     "logger.js"
   ],
+  "typings": "typings/index.d.ts",
   "author": "acrylic-style",
   "license": "SEE LICENCE IN LICENCE",
   "bugs": {
