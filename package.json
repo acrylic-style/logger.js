@@ -6,7 +6,7 @@
   },
   "name": "logger.js",
   "description": "its like log4js but not configurable.",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "index.js",
   "directories": {
     "example": "examples"
