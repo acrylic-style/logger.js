@@ -27,7 +27,7 @@ declare module 'logger.js' {
      * @param color null = random
      * @returns A Logger instance
      */
-    public static getLogger(thread: string, color: Color | null): Logger
+    static getLogger(thread: string, color: Color | null): Logger
   }
 
   export class Logger {
