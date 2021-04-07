@@ -19,7 +19,7 @@ declare module 'logger.js' {
     | 'fatal'
     | 'emerg' // i don't like this one
 
-  export interface LoggerFactory {
+  export class LoggerFactory {
     /**
      * Creates logger with specified thread name and color.
      *
@@ -27,7 +27,7 @@ declare module 'logger.js' {
      * @param color null = random
      * @returns A Logger instance
      */
-    static getLogger(thread: string, color: Color | null): Logger
+    public static getLogger(thread: string, color: Color | null): Logger
   }
 
   export class Logger {
